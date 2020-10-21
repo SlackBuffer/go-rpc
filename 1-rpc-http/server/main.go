@@ -3,9 +3,10 @@ package main
 import (
 	"errors"
 	"fmt"
-	"goplay/go-rpc/1-rpc/common"
+	"goplay/go-rpc/1-rpc-http/common"
 	"log"
 	"net"
+	"net/http"
 	"net/rpc"
 	"time"
 )
@@ -30,17 +31,10 @@ func (t *Arith) Divide(args *common.Args, quo *common.Quotient) error {
 
 func main() {
 	rpc.Register(new(Arith))
-
+	rpc.HandleHTTP()
 	listener, err := net.Listen("tcp", ":1234")
 	if err != nil {
 		log.Fatal("listen error:", err)
 	}
-	for {
-		conn, err := listener.Accept()
-		if err != nil {
-			log.Fatal("Accept error")
-		}
-		rpc.ServeConn(conn) // 一次只能接收一个客户端的请求
-		// go rpc.ServeConn(conn) //可以启协程来接收并发请求
-	}
+	http.Serve(listener, nil) // 可以同时接收多个客户端的请求
 }

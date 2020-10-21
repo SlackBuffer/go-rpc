@@ -2,15 +2,15 @@ package main
 
 import (
 	"fmt"
-	"goplay/go-rpc/1-rpc/common"
+	"goplay/go-rpc/1-rpc-http/common"
 	"log"
 	"net/rpc"
 )
 
 func main() {
-	client, err := rpc.Dial("tcp", "localhost:1234")
+	client, err := rpc.DialHTTP("tcp", "localhost:1234")
 	if err != nil {
-		log.Fatal("dial error:", err)
+		log.Fatal("dial http error:", err)
 	}
 
 	// Synchronous call
