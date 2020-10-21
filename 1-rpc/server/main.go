@@ -40,7 +40,7 @@ func main() {
 		if err != nil {
 			log.Fatal("Accept error")
 		}
-		rpc.ServeConn(conn) // 一次只能接收一个客户端的请求
+		rpc.ServeConn(conn) // 一次只能接收一个客户端的请求，处理完就返回
 		// go rpc.ServeConn(conn) //可以启协程来接收并发请求
 	}
 }
