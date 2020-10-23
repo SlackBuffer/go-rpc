@@ -60,6 +60,7 @@ func printFeatures(client pb.RouteGuideClient, rect *pb.Rectangle) {
 	log.Printf("Looking for features within %v", rect)
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+	// * 对 stub 的方法发起调用
 	stream, err := client.ListFeatures(ctx, rect)
 	if err != nil {
 		log.Fatalf("%v.ListFeatures(_) = _, %v", client, err)
